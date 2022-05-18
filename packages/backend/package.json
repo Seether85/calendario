@@ -1,0 +1,13 @@
+{
+  "name": "@seether85/backend",
+  "version": "1.0.0",
+  "description": "A very simply REST API in express for the frontend app to test agains",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-generator": "^4.16.1",
+    "sqlite3": "^5.0.8"
+  }
+}
