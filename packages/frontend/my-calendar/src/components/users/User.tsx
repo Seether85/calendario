@@ -1,9 +1,9 @@
 import React from 'react'
 import { useUser } from '../../hooks/useUser'
-import { Card } from '../base/Card'
+import { UserCard } from './UserCard'
 
 import { useMatch } from '@tanstack/react-location'
-import { EditCard } from '../base/EditCard'
+import { UserEditCard } from './UserEditCard'
 
 export const User: React.FC = () => {
   const {
@@ -13,38 +13,38 @@ export const User: React.FC = () => {
   const usersList = useUser(Number(id))
 
   if (usersList.isLoading) {
-    return <div>Fetching posts...</div>
+    return <div>Fetching users...</div>
   }
 
   if (usersList.isError) {
     console.log(usersList.error)
-    return <div>Error while fetching calendar events</div>
+    return <div>Error while fetching users</div>
   }
 
   //   if (usersList.isFetched) {
   //     console.log(usersList.data)
   // }
 
-  // const ActualCard = action !== undefined ? Card : EditCard
+  // const ActualCard = action !== undefined ? Card : UserEditCard
 
   return (
     <>
       {usersList.data?.map((user, index) =>
         action !== undefined ? (
-          <Card
+          <UserCard
             key={index}
             id={user.id}
             title="Er mitico"
-            content={user.firstname}
-            note={user.lastname}
+            firstname={user.firstname}
+            lastname={user.lastname}
           />
         ) : (
-          <EditCard
+          <UserEditCard
             key={index}
             id={user.id}
             title="Er mitico"
-            content={user.firstname}
-            note={user.lastname}
+            firstname={user.firstname}
+            lastname={user.lastname}
           />
         )
       )}

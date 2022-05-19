@@ -1,6 +1,6 @@
 import React from 'react'
 import { useUserList } from '../../hooks/useUserList'
-import { Card } from '../base/Card'
+import { UserCard } from './UserCard'
 
 export const UserList = () => {
   const usersList = useUserList()
@@ -21,12 +21,12 @@ export const UserList = () => {
   return (
     <>
       {usersList.data?.map((user, index) => (
-        <Card
+        <UserCard
           key={index}
           id={user.id}
           title="Er mitico"
-          content={user.firstname}
-          note={user.lastname}
+          firstname={user.firstname}
+          lastname={user.lastname}
         />
       ))}
     </>

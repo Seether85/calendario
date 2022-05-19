@@ -1,38 +1,67 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import { Typography } from '@mui/material'
-import Title from './Title'
+import Title from '../base/Title'
 
 import { createHashHistory } from '@tanstack/react-location'
 import { useUpdateUser } from '../../hooks/useUpdateUser'
+import { useValidateInput } from '../../hooks/useValidateInput'
 
-type Props = {
-  id: number
-  title: string
-  content: string
-  note: string
-}
+import { isFirstnameValid, isLastnameValid } from './validateFunctions'
 
-export const EditCard: React.FC<Props> = ({ id, title, content, note }) => {
+import { UserType } from '../../types/UserType'
+
+import './styles/styles.css'
+
+type Props = UserType & { title: string }
+
+export const UserEditCard: React.FC<Props> = ({
+  id,
+  title,
+  firstname,
+  lastname,
+}) => {
   const history = createHashHistory()
-  const contentEl = useRef<HTMLInputElement>(null)
-  const noteEl = useRef<HTMLInputElement>(null)
 
   const { mutate } = useUpdateUser()
+
+  const {
+    value: enteredFirstname,
+    isValid: firstnameIsValid,
+    hasError: firstnameHasError,
+    onChangeHandler: onFirstnameChangeHandler,
+    onBlurHandler: onFirstnameBlurHandler,
+  } = useValidateInput(isFirstnameValid, firstname)
+
+  const {
+    value: enteredLastname,
+    isValid: lastnameIsValid,
+    hasError: lastnameHasError,
+    onChangeHandler: onLastnameChangeHandler,
+    onBlurHandler: onLastnameBlurHandler,
+  } = useValidateInput(isLastnameValid, lastname)
 
   const edit = (event: React.SyntheticEvent) => {
     event.preventDefault()
 
-    if (noteEl.current !== null && contentEl.current !== null) {
+    if (
+      firstnameIsValid &&
+      !firstnameHasError &&
+      lastnameIsValid &&
+      !lastnameHasError
+    ) {
       mutate({
         id: id,
-        firstname: contentEl.current.value,
-        lastname: noteEl.current.value,
+        firstname: enteredFirstname,
+        lastname: enteredLastname,
       })
     }
   }
+
+  const isFirstnameValidClass = firstnameHasError ? 'error' : ''
+  const isLastnameValidClass = lastnameHasError ? 'error' : ''
 
   return (
     <Grid item xs={12} md={4} lg={3}>
@@ -52,20 +81,22 @@ export const EditCard: React.FC<Props> = ({ id, title, content, note }) => {
           </Title>
           <Typography component="p" variant="h4">
             <input
-              ref={contentEl}
+              className={isFirstnameValidClass}
               type="text"
-              name="content"
-              defaultValue={content}
-              required
+              name="firstname"
+              onChange={onFirstnameChangeHandler}
+              onBlur={onFirstnameBlurHandler}
+              value={enteredFirstname}
             />
           </Typography>
           <Typography color="text.secondary" sx={{ flex: 1 }}>
             <input
-              ref={noteEl}
+              className={isLastnameValidClass}
               type="text"
-              name="note"
-              defaultValue={note}
-              required
+              name="lastname"
+              onChange={onLastnameChangeHandler}
+              onBlur={onLastnameBlurHandler}
+              value={enteredLastname}
             />
           </Typography>
           <section style={{ marginTop: '1rem' }}>

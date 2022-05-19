@@ -1,6 +1,6 @@
 import React from 'react'
 import { useCalendarEventList } from '../../hooks/useCalendarEventList'
-import { Card } from '../base/Card'
+import { UserCard } from '../users/UserCard'
 
 export const CalendarEventList = () => {
   const calendarEventList = useCalendarEventList()
@@ -21,12 +21,12 @@ export const CalendarEventList = () => {
   return (
     <>
       {calendarEventList.data?.map((calendarEvent, index) => (
-        <Card
+        <UserCard
           key={index}
           id={calendarEvent.id}
           title={`Event for ${calendarEvent.user_firstname} ${calendarEvent.user_lastname}`}
-          content={calendarEvent.user_lastname}
-          note={calendarEvent.data}
+          firstname={calendarEvent.user_lastname}
+          lastname={calendarEvent.data}
         />
       ))}
     </>

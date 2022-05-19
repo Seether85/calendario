@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import { Typography } from '@mui/material'
 import RemoveIcon from '@mui/icons-material/Remove'
-import Title from './Title'
+import Title from '../base/Title'
 
 import { Link } from '@tanstack/react-location'
 import { useDeleteUser } from '../../hooks/useDeleteUser'
@@ -12,11 +12,16 @@ import { useDeleteUser } from '../../hooks/useDeleteUser'
 type Props = {
   id: number
   title: string
-  content: string
-  note: string
+  firstname: string
+  lastname: string
 }
 
-export const Card: React.FC<Props> = ({ id, title, content, note }) => {
+export const UserCard: React.FC<Props> = ({
+  id,
+  title,
+  firstname,
+  lastname,
+}) => {
   const bottomLink = `/users/${id}/edit`
 
   const { mutate } = useDeleteUser()
@@ -37,10 +42,10 @@ export const Card: React.FC<Props> = ({ id, title, content, note }) => {
       >
         <Title>{title}</Title>
         <Typography component="p" variant="h4">
-          {content}
+          {firstname}
         </Typography>
         <Typography color="text.secondary" sx={{ flex: 1 }}>
-          {note}
+          {lastname}
         </Typography>
         <div>
           <Grid container spacing={3}>

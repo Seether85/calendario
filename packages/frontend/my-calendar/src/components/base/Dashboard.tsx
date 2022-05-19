@@ -189,7 +189,7 @@ function DashboardContent() {
                 marginRight: '2rem',
               }}
             >
-              <AddIcon />
+              <AddIcon fontSize="large" />
             </Button>
 
             <Grid container spacing={3}>

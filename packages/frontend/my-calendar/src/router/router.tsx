@@ -1,5 +1,5 @@
 import { ReactLocation, Route } from '@tanstack/react-location'
-import { AddCard } from '../components/base/AddCard'
+import { UserAddCard } from '../components/users/UserAddCard'
 import { CalendarEventList } from '../components/calendarEvents/CalendarEventList'
 import { User } from '../components/users/User'
 import { UserList } from '../components/users/UserList'
@@ -13,7 +13,7 @@ export const routes: Route[] = [
       { path: '/', element: <UserList /> },
       {
         path: '/create',
-        element: <AddCard />,
+        element: <UserAddCard />,
       },
       { path: ':id', element: <User /> },
       { path: '/:id/:action', element: <User /> },
